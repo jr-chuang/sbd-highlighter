@@ -10,9 +10,10 @@
     "parcel-bundler": "^1.5.1"
   },
   "scripts": {
-    "build": "npm run build_script && npm run build_sbd",
+    "build": "npm run build_script && npm run build_sbd && npm run build_options",
     "build_script": "./node_modules/.bin/parcel build ./src/script.js",
-    "build_sbd": "./node_modules/.bin/parcel build ./src/sbd.js"
+    "build_sbd": "./node_modules/.bin/parcel build ./src/sbd.js",
+    "build_options": "./node_modules/.bin/parcel build ./src/options.js"
   },
   "author": "",
   "license": "SEE LICENSE IN LICENSE.md"
