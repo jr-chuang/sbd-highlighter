@@ -1,8 +1,18 @@
-chrome.storage.local.get('autorun', function (storageObject) {
-   if (storageObject.autorun) {
-    highlight();
-   }
-});
+/*******
+  sessionStorage stuff allows this page to be 
+  both autoran and manually ran.
+********/
+if (sessionStorage["postAutorunCheck"] != "true") {
+  chrome.storage.local.get('autorun', function (storageObject) {
+     if (storageObject.autorun) {
+      highlight();
+     }
+  });
+  sessionStorage.setItem("postAutorunCheck", "true");
+}
+else {
+  highlight();
+}
 
 function highlight() {
   let tokenizer = require('sbd');
@@ -23,4 +33,5 @@ function highlight() {
       element.appendChild(line);
     }
   }
+  sessionStorage.removeItem("postAutorunCheck");
 }
