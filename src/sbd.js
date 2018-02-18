@@ -1,10 +1,10 @@
-var isAutorunOn = window.localStorage["autorun"];
-alert(isAutorunOn);
-if (isAutorunOn == undefined) {
-		isAutorunOn = false;
-}
+chrome.storage.local.get('autorun', function (storageObject) {
+   if (storageObject.autorun) {
+    highlight();
+   }
+});
 
-if (isAutorunOn) {
+function highlight() {
   let tokenizer = require('sbd');
   let paragraphs = document.getElementsByTagName('p');
   let hue = Math.floor(Math.random()*360);

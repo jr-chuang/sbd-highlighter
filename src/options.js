@@ -1,16 +1,12 @@
 function loadOptions() {
-	var isAutorunOn = localStorage["autorun"];
-
-	if (isAutorunOn == undefined) {
-		isAutorunOn = false;
-	}
-
-	document.getElementById("autorun").checked = isAutorunOn;
+  chrome.storage.local.get('autorun', function (storageObject) {
+    document.getElementById("autorun").checked = storageObject.autorun;
+  });
 }
 
 function saveOptions() {
 	var isAutorunOn = document.getElementById("autorun").checked;
-	localStorage["autorun"] = isAutorunOn;
+  chrome.storage.local.set({'autorun': isAutorunOn}, undefined);
 }
 
 function restoreDefaultOptions() {
