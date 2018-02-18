@@ -7,19 +7,16 @@ function loadOptions() {
 function saveOptions() {
 	var isAutorunOn = document.getElementById("autorun").checked;
   chrome.storage.local.set({'autorun': isAutorunOn}, undefined);
+  location.reload();
 }
 
 function restoreDefaultOptions() {
-	localStorage.removeItem("autorun");
+	chrome.storage.local.clear();
 	location.reload();
 }
 
 window.onload = function() {
-  localStorage;
-  var options = document.getElementById('options');
-  options.addEventListener('load', () => {
-    loadOptions();
-  });
+  loadOptions();
   var saveButton = document.getElementById('saveButton');
   saveButton.addEventListener('click', () => {
     saveOptions();
