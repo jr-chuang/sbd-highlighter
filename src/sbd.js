@@ -14,6 +14,16 @@ else {
   highlight();
 }
 
+function getNextHue(hue) {
+  return (hue + 130) % 360;
+}
+
+function styleElement(elem, hue) {
+  elem.style.backgroundColor = 'hsl(' + hue + ', 75%, 97.5%)';
+  elem.style.boxDecorationBreak = 'clone';
+  elem.style.webkitBoxDecorationBreak = 'clone';
+}
+
 function handleSentences(paragraph, hue) {
   let tokenizer = require('sbd');
   let sentences = tokenizer.sentences(paragraph.innerHTML);
@@ -21,10 +31,8 @@ function handleSentences(paragraph, hue) {
   
   for (let j = 0; j < sentences.length; j++) {
     let line = document.createElement('span');
-    line.style.backgroundColor = 'hsl(' + hue + ', 75%, 97.5%)';
-    line.style.boxDecorationBreak = 'clone';
-    line.style.webkitBoxDecorationBreak = 'clone';
-    hue = (hue + 130) % 360;
+    styleElement(line, hue);
+    hue = getNextHue(hue);
     line.innerHTML = sentences[j] + ' ';
     paragraph.appendChild(line);
   }
@@ -37,7 +45,8 @@ function highlight() {
   for (let i = 0; i < paragraphs.length; i++) {
     chrome.storage.local.get('paragraph', function (storageObject) {
       if (storageObject.paragraph) {
-        console.log("Here!");
+        styleElement(paragraphs[i], hue);
+        hue = getNextHue(hue);
       }
       else {
         handleSentences(paragraphs[i], hue);
