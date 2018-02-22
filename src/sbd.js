@@ -42,10 +42,8 @@ function highlight() {
   let paragraphs = document.getElementsByTagName('p');
   let hue = Math.floor(Math.random()*360);
 
-  for (let i = 0; i < paragraphs.length; i++) {
-    // This Chrome storage stuff has to go inside the
-    // for loop because of weird scoping issues.
-    chrome.storage.local.get('paragraph', function (storageObject) {
+  chrome.storage.local.get('paragraph', function (storageObject) {
+    for (let i = 0; i < paragraphs.length; i++) {
       if (storageObject.paragraph) {
         styleElement(paragraphs[i], hue);
         hue = getNextHue(hue);
@@ -53,7 +51,7 @@ function highlight() {
       else {
         hue = handleSentences(paragraphs[i], hue);
       }
-    });
-  }
+    }
+  });
   sessionStorage.removeItem("postAutorunCheck");
 }
