@@ -2,11 +2,16 @@ function loadOptions() {
   chrome.storage.local.get('autorun', function (storageObject) {
     document.getElementById("autorun").checked = storageObject.autorun;
   });
+  chrome.storage.local.get('paragraph', function (storageObject) {
+    document.getElementById('paragraph').checked = storageObject.paragraph;
+  });
 }
 
 function saveOptions() {
-	var isAutorunOn = document.getElementById("autorun").checked;
-  chrome.storage.local.set({'autorun': isAutorunOn}, undefined);
+	var isChecked = document.getElementById('autorun').checked;
+  chrome.storage.local.set({'autorun': isChecked}, undefined);
+  isChecked = document.getElementById('paragraph').checked;
+  chrome.storage.local.set({'paragraph': isChecked}, undefined);
   location.reload();
 }
 
