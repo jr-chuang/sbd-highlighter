@@ -1,7 +1,5 @@
-/*******
-  sessionStorage stuff allows this page to be 
-  both autoran and manually ran.
-********/
+// sessionStorage stuff allows this page to be 
+//  both autoran and manually ran.
 if (sessionStorage["postAutorunCheck"] != "true") {
   chrome.storage.local.get('autorun', function (storageObject) {
     if (storageObject.autorun) {
@@ -36,6 +34,8 @@ function handleSentences(paragraph, hue) {
     line.innerHTML = sentences[j] + ' ';
     paragraph.appendChild(line);
   }
+  // Return the hue so colors don't keep repeating.
+  return hue;
 }
 
 function highlight() {
@@ -43,13 +43,15 @@ function highlight() {
   let hue = Math.floor(Math.random()*360);
 
   for (let i = 0; i < paragraphs.length; i++) {
+    // This Chrome storage stuff has to go inside the
+    // for loop because of weird scoping issues.
     chrome.storage.local.get('paragraph', function (storageObject) {
       if (storageObject.paragraph) {
         styleElement(paragraphs[i], hue);
         hue = getNextHue(hue);
       }
       else {
-        handleSentences(paragraphs[i], hue);
+        hue = handleSentences(paragraphs[i], hue);
       }
     });
   }
