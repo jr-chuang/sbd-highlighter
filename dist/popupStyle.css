@@ -1,11 +1,12 @@
 body {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   white-space: nowrap;
 }
 #container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-self: center;
+  margin: 0 auto;
 }
 #enable {
   background-color: black;
@@ -21,7 +22,7 @@ h1 {
 }
 hr {
   display: inline-block;
-  width: 25%;
+  width: 28%;
   border-top: 0px;
   border-bottom: 1px solid black;
   position: relative;
@@ -30,12 +31,15 @@ hr {
 ul {
   list-style: none;
   align-items: left;
+  margin: 0px;
+  padding: 0px;
 }
 li {
   font-size: 32px;
   text-align: left;
   background: lightgrey;
   width: 100%;
+  padding: 5px;
   border: 10px solid white;
 }
 input[type="checkbox"] {
@@ -44,18 +48,26 @@ input[type="checkbox"] {
   height: 28px;
   background: white;
   border: 2px solid black;
+  position: relative;
+  top: 5px;
 }
 input[type="checkbox"]:checked {
   background: dodgerblue;
+  position: relative;
+  top: 5px;
 }
 input[type="text"] {
-  width: 60%;
+  width: 45%;
   height: 90%;
   font-size: 30px;
+  text-align: center;
+  position: relative;
+  bottom: 2px;
 }
 button {
   background: black;
   color: white;
   font-size: 26px;
   text-align: center;
+  padding: 3px;
 }
