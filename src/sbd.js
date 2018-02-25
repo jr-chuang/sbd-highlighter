@@ -61,3 +61,7 @@ function highlight() {
   });
   sessionStorage.removeItem("postAutorunCheck");
 }
+
+window.onbeforeunload = function() {
+  sessionStorage.removeItem("postAutorunCheck");
+}
