@@ -8,9 +8,22 @@ body {
   justify-content: space-between;
 }
 #enable {
-  background-color: inherit;
+  background-color: black;
   cursor: pointer;
   padding: 15px;
   text-align: center;
   border-radius: 15px;
+  font-size: 40px;
+  color: white;
+}
+h1 {
+  text-align: center;
+}
+hr {
+  display: inline-block;
+  width: 25%;
+  border-top: 0px;
+  border-bottom: 1px solid black;
+  position: relative;
+  top: 5px;
 }
