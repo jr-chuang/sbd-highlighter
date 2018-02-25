@@ -20,6 +20,12 @@ function styleElement(elem, hue) {
   elem.style.backgroundColor = 'hsl(' + hue + ', 75%, 97.5%)';
   elem.style.boxDecorationBreak = 'clone';
   elem.style.webkitBoxDecorationBreak = 'clone';
+  
+  chrome.storage.local.get('fontSize', function (storageObject) {
+    if (storageObject.fontSize != undefined) {
+      elem.style.fontSize = '' + storageObject.fontSize + 'px';
+    }
+  });
 }
 
 function handleSentences(paragraph, hue) {
