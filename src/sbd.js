@@ -1,5 +1,7 @@
 // sessionStorage stuff allows this page to be 
 //  both autoran and manually ran.
+var lineHeight = require('line-height');
+
 if (sessionStorage["postAutorunCheck"] != "true") {
   chrome.storage.local.get('autorun', function (storageObject) {
     if (storageObject.autorun) {
@@ -38,12 +40,22 @@ function handleSentences(paragraph, hue) {
   return hue;
 }
 
+function lineSpacer(elem) {
+  chrome.storage.local.get('spacer', function (storageObject) {
+    if (storageObject.spacer) {
+      let height = lineHeight(elem);
+      elem.style.lineHeight = (height * 1.5) + "px";
+    }
+  });
+} 
+
 function highlight() {
   let paragraphs = document.getElementsByTagName('p');
   let hue = Math.floor(Math.random()*360);
 
   chrome.storage.local.get('paragraph', function (storageObject) {
     for (let i = 0; i < paragraphs.length; i++) {
+      lineSpacer(paragraphs[i]);
       if (storageObject.paragraph) {
         styleElement(paragraphs[i], hue);
         hue = getNextHue(hue);

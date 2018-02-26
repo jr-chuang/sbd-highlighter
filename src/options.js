@@ -5,6 +5,9 @@ function loadOptions() {
   chrome.storage.local.get('paragraph', function (storageObject) {
     document.getElementById('paragraph').checked = storageObject.paragraph;
   });
+  chrome.storage.local.get('spacer', function (storageObject) {
+    document.getElementById('spacer').checked = storageObject.spacer;
+  });
 }
 
 function saveOptions() {
@@ -12,6 +15,8 @@ function saveOptions() {
   chrome.storage.local.set({'autorun': isChecked}, undefined);
   isChecked = document.getElementById('paragraph').checked;
   chrome.storage.local.set({'paragraph': isChecked}, undefined);
+  isChecked = document.getElementById('spacer').checked;
+  chrome.storage.local.set({'spacer': isChecked}, undefined);
   location.reload();
 }
 
