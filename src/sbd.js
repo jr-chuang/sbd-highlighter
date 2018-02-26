@@ -1,11 +1,22 @@
 
 // The following code is ran on the start of initialization.
-console.log('Initializing sbd extension...');
+console.log('Running sbd_extension extension script...');
 
 // Global variable for extension
 var extension_sbd = extension_sbd || { DEBUG: true };
 
 // The following code is the core functionality of the extension.
+
+// Debug/logging function
+extension_sbd.log = extension_sbd.log || function (statement, comments) {
+  if (comments === undefined) {
+    console.log('extension_sbd debug: ' + statement);
+  } else {
+    console.log('extension_sbd debug object (' + comments + ')');
+    console.log(statement);
+  }
+
+}
 
 // Returns all HTML elements to be processed by the extension.
 extension_sbd.getParagraphs = extension_sbd.getParagraphs || function () {
@@ -15,7 +26,7 @@ extension_sbd.getParagraphs = extension_sbd.getParagraphs || function () {
 // ASYNC: returns promise for the requested Chrome storage value.
 extension_sbd.getStorageValue = extension_sbd.getStorageValue || function (value) {
   return new Promise((resolve, reject) => {
-    if (extension_sbd.DEBUG) console.log('Acquiring via promise: ' + value);
+    if (extension_sbd.DEBUG) extension_sbd.log('Acquiring via promise: ' + value);
     chrome.storage.local.get(value, (storageObject) => {
       resolve(storageObject[value]);
     });
@@ -25,7 +36,7 @@ extension_sbd.getStorageValue = extension_sbd.getStorageValue || function (value
 // Loaded function that handles the core functionality.
 extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
 
-  if (extension_sbd.DEBUG) console.log('Acquiring parameters.');
+  if (extension_sbd.DEBUG) extension_sbd.log('Acquiring parameters.');
 
   // Get parameters
   Promise.all( [
@@ -49,20 +60,17 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
     } else {
       parameters.nextParagraph = function () {};
     }
-    if (extension_sbd.DEBUG) {
-      console.log('Parameters acquired:');
-      console.log(parameters);
-    }
+    if (extension_sbd.DEBUG) extension_sbd.log(parameters, 'parameters');
     return parameters;
 
   }).then((parameters) => {
 
     // Begin operation
-    if (extension_sbd.DEBUG) console.log('Beginning core functionality.');
+    if (extension_sbd.DEBUG) extension_sbd.log('Beginning core functionality.');
 
     // Paragraph or sentence mode?
     if (parameters.paragraph) {
-      if (extension_sbd.DEBUG) console.log('Paragraph mode.');
+      if (extension_sbd.DEBUG) extension_sbd.log('Paragraph mode.');
       // Style each element.
       for (let i = 0; i < extension_sbd.paragraphs.length; i++) {
         let paragraph = extension_sbd.paragraphs[i];
@@ -70,7 +78,7 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
         parameters.nextParagraph();
       }
     } else {
-      if (extension_sbd.DEBUG) console.log('Sentence mode.');
+      if (extension_sbd.DEBUG) extension_sbd.log('Sentence mode.');
       for (let i = 0; i < extension_sbd.paragraphs.length; i++) {
         let paragraph = extension_sbd.paragraphs[i];
         // Generate sentences if not already generated.
@@ -87,7 +95,7 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
       }
     }
 
-    if (extension_sbd.DEBUG) console.log('Core functionality completed.');
+    if (extension_sbd.DEBUG) extension_sbd.log('Core functionality completed.');
 
   });
 
@@ -122,7 +130,7 @@ extension_sbd.highlight = extension_sbd.highlight || function () {
 
   // Store all paragraph elements globally if not already stored.
   if (typeof extension_sbd.paragraphs === 'undefined') {
-    if (extension_sbd.DEBUG) console.log('Finding and storing paragraphs.');
+    if (extension_sbd.DEBUG) extension_sbd.log('Finding and storing paragraphs.');
     let paragraphs = this.getParagraphs();
     extension_sbd.paragraphs = [];
     for (let i = 0; i < paragraphs.length; i++) {
@@ -131,13 +139,10 @@ extension_sbd.highlight = extension_sbd.highlight || function () {
       });
     }
   } else {
-    if (extension_sbd.DEBUG) console.log('Paragraphs already found.');
+    if (extension_sbd.DEBUG) extension_sbd.log('Paragraphs already found.');
   }
 
-  if (extension_sbd.DEBUG) {
-    console.log('Global Check:');
-    console.log(extension_sbd);
-  }
+  if (extension_sbd.DEBUG) extension_sbd.log(extension_sbd, 'paragraphs');
 
   // Handle all paragraphs.
   this.handleParagraphs();
@@ -150,13 +155,13 @@ extension_sbd.highlight = extension_sbd.highlight || function () {
 if (sessionStorage["postAutorunCheck"] !== 'true') {
   chrome.storage.local.get('autorun', function (storageObject) {
     if (storageObject.autorun) {
-      if (extension_sbd.DEBUG) console.log('Autorunning highlight.');
+      if (extension_sbd.DEBUG) extension_sbd.log('Autorunning highlight.');
       extension_sbd.highlight();
     }
   });
   sessionStorage.setItem('postAutorunCheck', 'true');
 } else {
-  if (extension_sbd.DEBUG) console.log('Button pressed.');
+  if (extension_sbd.DEBUG) extension_sbd.log('Button pressed.');
   extension_sbd.highlight();
 }
 
