@@ -15,7 +15,6 @@ function saveOptions() {
   chrome.storage.local.set({'autorun': isChecked}, undefined);
   isChecked = document.getElementById('paragraph').checked;
   chrome.storage.local.set({'paragraph': isChecked}, undefined);
-  
   var fontSize = document.getElementById('fontSize').value;
   chrome.storage.local.set({'fontSize': fontSize}, undefined);
   location.reload();
