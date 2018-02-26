@@ -5,6 +5,9 @@ function loadOptions() {
   chrome.storage.local.get('paragraph', function (storageObject) {
     document.getElementById('paragraph').checked = storageObject.paragraph;
   });
+  chrome.storage.local.get('fontSize', function (storageObject) {
+    document.getElementById('fontSize').value = storageObject.fontSize;
+  });
 }
 
 function saveOptions() {
@@ -12,6 +15,8 @@ function saveOptions() {
   chrome.storage.local.set({'autorun': isChecked}, undefined);
   isChecked = document.getElementById('paragraph').checked;
   chrome.storage.local.set({'paragraph': isChecked}, undefined);
+  var fontSize = document.getElementById('fontSize').value;
+  chrome.storage.local.set({'fontSize': fontSize}, undefined);
   location.reload();
 }
 
