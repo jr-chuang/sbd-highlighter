@@ -53,12 +53,10 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
     parameters.nextSentence = function () {
       this.hue = (this.hue + this.hueModifier) % 360;
     };
-    if (parameters.paragraph) {
-      parameters.nextParagraph = function () {
+    parameters.nextParagraph = function () {
+      if (this.paragraph) {
         this.hue = (this.hue + this.hueModifier) % 360;
-      };
-    } else {
-      parameters.nextParagraph = function () {};
+      }
     }
     if (extension_sbd.DEBUG) extension_sbd.log(parameters, 'parameters');
     return parameters;

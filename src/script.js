@@ -14,10 +14,44 @@ function runScript() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
   getCurrentTabUrl((url) => {
-    var button = document.getElementById('enable');
-    button.addEventListener('click', () => {
+
+    chrome.storage.local.get('autorun', function (storageObject) {
+      document.getElementById("autorun").checked = storageObject.autorun;
+    });
+    chrome.storage.local.get('paragraph', function (storageObject) {
+      document.getElementById('paragraph').checked = storageObject.paragraph;
+    });
+    chrome.storage.local.get('fontSize', function (storageObject) {
+      document.getElementById('fontSize').value = storageObject.fontSize;
+    });
+
+    var element = document.getElementById('enable');
+    element.addEventListener('click', () => {
       runScript();
     });
+
+    element = document.getElementById('autorun');
+    element.addEventListener('change', function () {
+      chrome.storage.local.set( {'autorun': this.checked }, () => {
+        runScript();
+      });
+    });
+
+    element = document.getElementById('paragraph');
+    element.addEventListener('change', function () {
+      chrome.storage.local.set( {'paragraph': this.checked }, () => {
+        runScript();
+      });
+    });
+
+    element = document.getElementById('fontSize');
+    element.addEventListener('change', function () {
+      chrome.storage.local.set( {'fontSize': this.value }, () => {
+        runScript();
+      });
+    });
+
   });
 });
