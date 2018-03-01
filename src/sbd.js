@@ -41,13 +41,15 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
   // Get parameters
   Promise.all( [
     this.getStorageValue('paragraph'),
-    this.getStorageValue('fontSize')] )
+    this.getStorageValue('fontSize'),
+    this.getStorageValue('dyslexic')] )
   .then((values) => {
 
     // Store parameters.
     let parameters = {};
     parameters.paragraph = values[0];
     parameters.fontSize = values[1];
+    parameters.dyslexic = values[2];
     parameters.hue = Math.floor(Math.random()*360);
     parameters.hueModifier = 70;
     parameters.nextSentence = function () {
@@ -106,6 +108,9 @@ extension_sbd.styleElement = extension_sbd.styleElement || function (elem, param
   elem.style.webkitBoxDecorationBreak = 'clone';
   if (typeof parameters.fontSize !== 'undefined') {
     elem.style.fontSize = '' + parameters.fontSize + 'px';
+  }
+  if (parameters.dyslexic) {
+    elem.style.fontFamily = 'Arial, sans-serif';
   }
 }
 

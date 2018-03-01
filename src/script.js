@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get('paragraph', function (storageObject) {
       document.getElementById('paragraph').checked = storageObject.paragraph;
     });
+    chrome.storage.local.get('dyslexic', function (storageObject) {
+      document.getElementById('dyslexic').checked = storageObject.dyslexic;
+    });
     chrome.storage.local.get('fontSize', function (storageObject) {
       document.getElementById('fontSize').value = storageObject.fontSize;
     });
@@ -42,6 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
     element = document.getElementById('paragraph');
     element.addEventListener('change', function () {
       chrome.storage.local.set( {'paragraph': this.checked }, () => {
+        runScript();
+      });
+    });
+    
+    element = document.getElementById('dyslexic');
+    element.addEventListener('change', function () {
+      chrome.storage.local.set( {'dyslexic': this.checked }, () => {
         runScript();
       });
     });
