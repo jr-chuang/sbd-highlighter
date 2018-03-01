@@ -2,29 +2,63 @@
 <html>
   <head>
     <title>Options for Highlighter</title>
+    <link rel="stylesheet" href="optionStyle.css">
     <script src="options.js"></script>
   </head>
   
   <body id="options">
     <h1>Options</h1>
-      <ul>
-        <li>
+    <table cellspacing="0">
+      <tr>
+        <th>
+          <h2>Autorun</h2>
+        </th>
+        <th>
+          <h2>Paragraph Mode</h2>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <p><strong>
+            When enabled, Autorun will have the highlighter
+            run automatically whenever you visit a new page.
+          </strong></p>
+          <br>
           <input id="autorun" type="checkbox">
-            Autorun
-          </input>
-        </li>
-        <li>
+          <label for="autorun"><strong>Turn On<strong></label>
+        </td>
+        <td class="gray">
+          <p><strong>
+            This mode makes the highlighter apply
+            one color to an entire paragraph, instead
+            of changing colors every sentence as is
+            the default.
+          </strong></p>
           <input id="paragraph" type="checkbox">
-            Highlight paragraphs
-          </input>
-        </li>
-        <li>
-          Font Size:
+          <label for="paragraph"><strong>Turn On<strong></label>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <h2>Font Size</h2>
+        </th>
+        <th>
+          <h2>Something</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="gray">
+          <p><strong>
+            Adjust the size of the highlighted
+            text to your liking.
+          </strong></p>
+          <span class="noCheck">Font Size:</span>
           <input id="fontSize" type="text">
-        </li>
-      </ul>
+        </td>
+        <td>
+        </td>
+    </table>
     <br>
-    <button id="saveButton">Save</button>
     <br>
     <button id="restoreButton">Restore Defaults</button>
   </body>
