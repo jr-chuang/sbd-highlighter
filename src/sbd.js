@@ -3,10 +3,8 @@
 console.log('Running sbd_extension extension script...');
 
 // Global variable for extension
-var extension_sbd = extension_sbd || { DEBUG: true };
-
-// Retains last line scaling value
-extension_sbd.lastScale = extension_sbd.lastScale || 1;
+var extension_sbd = extension_sbd || { DEBUG: true, TIME: Date.now() };
+console.log(extension_sbd.TIME);  
 
 // The following code is the core functionality of the extension.
 
@@ -45,7 +43,8 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
   Promise.all( [
     this.getStorageValue('paragraph'),
     this.getStorageValue('fontSize'),
-    this.getStorageValue('lineHeight')] )
+    this.getStorageValue('lineHeight'),
+    this.getStorageValue('lastHeight')] )
   .then((values) => {
 
     // Store parameters.
@@ -53,6 +52,9 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
     parameters.paragraph = values[0];
     parameters.fontSize = values[1];
     parameters.lineHeight = values[2];
+    parameters.lastHeight = values[3];
+    console.log("Store Param: " + parameters.lineHeight);
+    console.log("Store Param: " + parameters.lastHeight);
     parameters.hue = Math.floor(Math.random()*360);
     parameters.hueModifier = 70;
     parameters.nextSentence = function () {
@@ -75,19 +77,17 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
       let paragraph = extension_sbd.paragraphs[i];
       this.styleParagraph(paragraph, parameters);
     }
-    this.lastScale = parameters.lineHeight; // Stores new line height scaling.
     if (extension_sbd.DEBUG) extension_sbd.log('Core functionality completed.');
-
    });
 }
 
 // Scales the line height of an element based on given parameters
 extension_sbd.lineSpacer = extension_sbd.lineSpacer || function (elem, parameters) {
   let scalar = parameters.lineHeight;
-  console.log("Old Height:" + this.lastScale);
+  console.log("Old Height:" + parameters.lastHeight); 
   console.log("New Height:" + scalar);
   let lineHeight = require('line-height');
-  let newHeight = lineHeight(elem) / this.lastScale * scalar;
+  let newHeight = lineHeight(elem) / parameters.lastHeight * scalar;
   elem.style.lineHeight = newHeight + "px";
   console.log(newHeight);
  }

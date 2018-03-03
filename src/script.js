@@ -28,11 +28,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     chrome.storage.local.get('lineHeight', function (storageObject) {
       var elem = document.getElementById('lineHeight');
+      console.log("BLAH" + storageObject.lineHeight);
+      console.log("BLAH2" + elem.selectedIndex);
+      if (typeof storageObject.lineHeight === "undefined") {
+        chrome.storage.local.set({'lineHeight': 1}, () => {
+          elem.selectedIndex = 0;
+          elem.options[elem.selectedIndex].selected = true;
+        });
+      }
       for (var i = 0; i < elem.options.length; i++) {
-        if (elem.options[i].value = storageObject.lineHeight) {
+        if (elem.options[i].value == storageObject.lineHeight) {
           elem.selectedIndex = i;
+          elem.options[elem.selectedIndex].selected = true;
           break;
         }
+      }
+    });
+    chrome.storage.local.get('lastHeight', function (storageObject) {
+      if (typeof storageObject.lineHeight === "undefined") {
+        chrome.storage.local.set({'lastHeight': 1}, () => {});
       }
     });
 
@@ -64,9 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     element = document.getElementById('lineHeight');
     element.addEventListener('change', function () {
+      console.log(this);
+      chrome.storage.local.get( 'lineHeight', (storageObject) => {
+        chrome.storage.local.set( { 'lastHeight' : storageObject.lineHeight }, () => {
+          chrome.storage.local.set( { 'lineHeight' : this.options[this.selectedIndex].value }, () => {
+            runScript();
+          });
+        });
+      });
+      /*
       chrome.storage.local.set( {'lineHeight': this.options[this.selectedIndex].value }, () => {
         runScript();
       });
+      */
     });
 
   });
