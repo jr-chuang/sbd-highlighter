@@ -4,29 +4,44 @@
     <title>SBD Highlighter (name pending)</title>
     <link rel="stylesheet" href="popupStyle.css">
     <script src="script.js"></script>
-    <script src="options.js"></script>
   </head>
   <body>
     <div id="container">
-      <div id="enable">HIGHLIGHT</div>
+      <div id="enable"><strong>HIGH-LIGHT</strong></div>
     </div>
-    
+
     <!-- Options -->
     <div id="options">
-      <h1>Options</h1>
-      <input id="autorun" type="checkbox">
-        Autorun
-      </input>
-      <input id="paragraph" type="checkbox">
-        Highlight paragraphs
-      </input>
-      <input id="spacer" type="checkbox">
-        Spaces lines
-      </input>
-      <br>
-      <button id="saveButton">Save</button>
-      <br>
-      <button id="restoreButton">Restore default</button>
+      <h1>
+        <hr>&nbsp Options &nbsp <hr>
+      </h1>
+      <ul>
+        <li>
+          <input id="autorun" type="checkbox">
+            <strong>Autorun</strong>
+          </input>
+        </li>
+        <li>
+          <input id="paragraph" type="checkbox">
+            <strong>Paragraph Mode</strong>
+          </input>
+        </li>
+        <li>
+          <strong>Font Size:</strong>
+          <input id="fontSize" type="text">
+        </li>
+        <li>
+          <strong>Line Spacing:
+            <select id="lineHeight"> 
+              <option value="1">1.00x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.50x</option>
+              <option value="1.75">1.75x</option>
+              <option value="2">2.00x</option> 
+            </select> 
+          </strong>
+        </li>
+      </ul>
     </div>
   </body>
 </html>

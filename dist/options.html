@@ -7,18 +7,31 @@
   
   <body id="options">
     <h1>Options</h1>
-    <input id="autorun" type="checkbox">
-      Autorun
-    </input>
-    <input id="paragraph" type="checkbox">
-      Highlight paragraphs
-    </input>
-    <input id="spacer" type="checkbox">
-      Spaces lines
-    </input>
-    <br>
-    <button id="saveButton">Save</button>
-    <br>
-    <button id="restoreButton">Restore Defaults</button>
+      <ul>
+        <li>
+          <input id="autorun" type="checkbox">
+            Autorun
+          </input>
+        </li>
+        <li>
+          <input id="paragraph" type="checkbox">
+            Highlight paragraphs
+          </input>
+        </li>
+        <li>
+          Font Size:
+          <input id="fontSize" type="text">
+        </li>
+        <li>
+          Line Spacing:
+          <select id="lineHeight">
+            <option value="1">1.00x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.50x</option>
+            <option value="1.75">1.75x</option>
+            <option value="2">2.00x</option>
+          </select> 
+        </li>
+      </ul>
   </body>
 </html>
