@@ -6,7 +6,7 @@ console.log('Running sbd_extension extension script...');
 var extension_sbd = extension_sbd || { DEBUG: true };
 
 // Retains last line scaling value
-extension_sbd.lastScale = extension_bsd.lastScale || 1;
+extension_sbd.lastScale = extension_sbd.lastScale || 1;
 
 // The following code is the core functionality of the extension.
 
