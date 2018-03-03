@@ -5,6 +5,9 @@ console.log('Running sbd_extension extension script...');
 // Global variable for extension
 var extension_sbd = extension_sbd || { DEBUG: true };
 
+// Retains last line scaling value
+extension_sbd.lastScale = extension_bsd.lastScale || 1;
+
 // The following code is the core functionality of the extension.
 
 // Debug/logging function
@@ -42,14 +45,14 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
   Promise.all( [
     this.getStorageValue('paragraph'),
     this.getStorageValue('fontSize'),
-    this.getStorageValue('dyslexic')] )
+    this.getStorageValue('lineHeight')] )
   .then((values) => {
 
     // Store parameters.
     let parameters = {};
     parameters.paragraph = values[0];
     parameters.fontSize = values[1];
-    parameters.dyslexic = values[2];
+    parameters.lineHeight = values[2];
     parameters.hue = Math.floor(Math.random()*360);
     parameters.hueModifier = 70;
     parameters.nextSentence = function () {
@@ -68,51 +71,63 @@ extension_sbd.handleParagraphs = extension_sbd.handleParagraphs || function () {
     // Begin operation
     if (extension_sbd.DEBUG) extension_sbd.log('Beginning core functionality.');
 
-    // Paragraph or sentence mode?
-    if (parameters.paragraph) {
-      if (extension_sbd.DEBUG) extension_sbd.log('Paragraph mode.');
-      // Style each element.
-      for (let i = 0; i < extension_sbd.paragraphs.length; i++) {
-        let paragraph = extension_sbd.paragraphs[i];
-        this.styleElement(paragraph.element, parameters);
-        parameters.nextParagraph();
-      }
-    } else {
-      if (extension_sbd.DEBUG) extension_sbd.log('Sentence mode.');
-      for (let i = 0; i < extension_sbd.paragraphs.length; i++) {
-        let paragraph = extension_sbd.paragraphs[i];
-        // Generate sentences if not already generated.
-        if (typeof paragraph.sentences === 'undefined') {
-          paragraph.sentences = this.generateSentences(paragraph.element);
-        }
-        // Style each sentence.
-        for (let j = 0; j < paragraph.sentences.length; j++) {
-          let sentence = paragraph.sentences[j];
-          this.styleElement(sentence.element, parameters);
-          parameters.nextSentence();
-        }
-        parameters.nextParagraph();
-      }
+    for (let i = 0; i < extension_sbd.paragraphs.length; i++) {
+      let paragraph = extension_sbd.paragraphs[i];
+      this.styleParagraph(paragraph, parameters);
     }
-
+    this.lastScale = parameters.lineHeight; // Stores new line height scaling.
     if (extension_sbd.DEBUG) extension_sbd.log('Core functionality completed.');
 
-  });
+   });
+}
 
+// Scales the line height of an element based on given parameters
+extension_sbd.lineSpacer = extension_sbd.lineSpacer || function (elem, parameters) {
+  let scalar = parameters.lineHeight;
+  console.log("Old Height:" + this.lastScale);
+  console.log("New Height:" + scalar);
+  let lineHeight = require('line-height');
+  let newHeight = lineHeight(elem) / this.lastScale * scalar;
+  elem.style.lineHeight = newHeight + "px";
+  console.log(newHeight);
+ }
+ 
+ // Styles the given element based on the given parameters
+extension_sbd.styleParagraph = extension_sbd.styleParagraph || function (paragraph, parameters) {
+  let elem = paragraph.element;
+  this.lineSpacer(elem, parameters);
+  if (!parameters.paragraph) {
+    //if (extension_sbd.DEBUG) extension_sbd.log('Sentence mode.');
+    this.styleSentence(paragraph, parameters);
+  } else {
+    //if (extension_sbd.DEBUG) extension_sbd.log('Paragraph mode.');
+    elem.style.backgroundColor = 'hsl(' + parameters.hue + ', 78%, 90%)';
+    elem.style.boxDecorationBreak = 'clone';
+    elem.style.webkitBoxDecorationBreak = 'clone';
+    if (typeof parameters.fontSize !== 'undefined') {
+      elem.style.fontSize = '' + parameters.fontSize + 'px';
+    }
+  }
+  parameters.nextParagraph();
 }
 
 // Styles the given element based on the given parameters
-extension_sbd.styleElement = extension_sbd.styleElement || function (elem, parameters) {
-  elem.style.backgroundColor = 'hsl(' + parameters.hue + ', 78%, 90%)';
-  elem.style.boxDecorationBreak = 'clone';
-  elem.style.webkitBoxDecorationBreak = 'clone';
-  if (typeof parameters.fontSize !== 'undefined') {
-    elem.style.fontSize = '' + parameters.fontSize + 'px';
+extension_sbd.styleSentence = extension_sbd.styleSentence || function (paragraph, parameters) {
+  let elem = paragraph.element;
+  if (typeof paragraph.sentences === 'undefined') {
+   paragraph.sentences = this.generateSentences(elem);
   }
-  if (parameters.dyslexic) {
-    elem.style.fontFamily = 'Arial, sans-serif';
+  for (let i = 0; i < paragraph.sentences.length; i++) {
+   let sentence = paragraph.sentences[i].element;
+   sentence.style.backgroundColor = 'hsl(' + parameters.hue + ', 78%, 90%)';
+   sentence.style.boxDecorationBreak = 'clone';
+   sentence.style.webkitBoxDecorationBreak = 'clone';
+   if (typeof parameters.fontSize !== 'undefined') {
+    sentence.style.fontSize = '' + parameters.fontSize + 'px';
+   }
+   parameters.nextSentence();
   }
-}
+ }
 
 // Breaks down given element into an array of spans and returns the array.
 extension_sbd.generateSentences = extension_sbd.generateSentences || function (paragraph) {
