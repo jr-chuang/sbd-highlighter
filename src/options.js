@@ -17,38 +17,38 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get('paragraph', function (storageObject) {
       document.getElementById('paragraph').checked = storageObject.paragraph;
     });
-    chrome.storage.local.get('dyslexic', function (storageObject) {
-      document.getElementById('dyslexic').checked = storageObject.dyslexic;
+    /*
+    chrome.storage.local.get('font', function (storageObject) {
+      document.getElementById('font').checked = storageObject.dyslexic;
     });
-    chrome.storage.local.get('fontSize', function (storageObject) {
-      document.getElementById('fontSize').value = storageObject.fontSize;
+    */
+    chrome.storage.local.get('fontsize', function (storageObject) {
+      document.getElementById('fontsize').value = storageObject.fontSize;
     });
 
     element = document.getElementById('autorun');
     element.addEventListener('change', function () {
       chrome.storage.local.set( {'autorun': this.checked }, () => {
-        
+
       });
     });
 
     element = document.getElementById('paragraph');
     element.addEventListener('change', function () {
       chrome.storage.local.set( {'paragraph': this.checked }, () => {
-        
-      });
-    });
-    
-    element = document.getElementById('dyslexic');
-    element.addEventListener('change', function () {
-      chrome.storage.local.set( {'dyslexic': this.checked }, () => {
-        
+
       });
     });
 
-    element = document.getElementById('fontSize');
+    element = document.getElementById('dyslexic');
     element.addEventListener('change', function () {
-      chrome.storage.local.set( {'fontSize': this.value }, () => {
-        
+      chrome.storage.local.set( {'font': (this.checked ? 'arial' : 'disabled') }, () => { });
+    });
+
+    element = document.getElementById('fontsize');
+    element.addEventListener('change', function () {
+      chrome.storage.local.set( {'fontsize': this.value }, () => {
+
       });
     });
 

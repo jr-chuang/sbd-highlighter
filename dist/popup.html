@@ -1,41 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html>
   <head>
-    <title>SBD Highlighter (name pending)</title>
-    <link rel="stylesheet" href="popupStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="popup-style.css">
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="container">
-      <div id="enable"><strong>HIGH-LIGHT</strong></div>
+    <div class="header">
+      <div id="enabled-wrapper">
+        <input id="enabled" type="checkbox"/>
+        <label for="enabled">HIGH-LIGHT</label>
+      </div>
+      <div id="autorun-wrapper">
+        <input id="autorun" type="checkbox"/>
+        <label for="autorun">autorun</label>
+      </div>
     </div>
-
-    <!-- Options -->
-    <div id="options">
-      <h1>
-        <hr>&nbsp Options &nbsp <hr>
-      </h1>
-      <ul>
-        <li>
-          <input id="autorun" type="checkbox">
-            <strong>Autorun</strong>
-          </input>
-        </li>
-        <li>
-          <input id="paragraph" type="checkbox">
-            <strong>Paragraph Mode</strong>
-          </input>
-        </li>
-        <li>
-          <input id="dyslexic" type="checkbox">
-            <strong>Dyslexic Font</strong>
-          </input>
-        </li>
-        <li>
-          <strong>Font Size:</strong>
-          <input id="fontSize" type="text">
-        </li>
-      </ul>
+    <div class="body">
+      <div id="options">
+        options
+      </div>
+      <!--
+      <div class="row">
+        <div class="row-title">
+          config
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="config">
+              <option value="default">default</option>
+              <option value="aggressive">aggressive</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      -->
+      <div class="row">
+        <div class="row-title">
+          colors
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="colors">
+              <option value="enabled">enabled</option>
+              <option value="disabled">disabled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          paragraph mode
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="paragraph">
+              <option value="disabled">disabled</option>
+              <option value="enabled">enabled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          custom font
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="font">
+              <option value="disabled">disabled</option>
+              <option value="arial">arial</option>
+              <option value="opendys">opendyslexic</option>
+              <option value="courier">courier</option>
+              <option value="verdana">verdana</option>
+              <option value="os">os</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          font size
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="fontsize">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="slider-content">
+        </div>
+        <div class="slider">
+          <input id="fontsize_slider" type="range" min="1" max="100" value="20" class="slider">
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          spacing
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="vspace">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="slider-content">
+        </div>
+        <div class="slider">
+          <input id="vspace_slider" type="range" min="1" max="100" value="20" class="slider">
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          padding
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="padding">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="slider-content">
+        </div>
+        <div class="slider">
+          <input id="padding_slider" type="range" min="1" max="100" value="20" class="slider">
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-title">
+          text width
+        </div>
+        <div class="row-content">
+          <div class="custom-select">
+            <select id="width">
+              <option value="disabled">disabled</option>
+              <option value="condensed">condensed</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
