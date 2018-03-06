@@ -3,7 +3,8 @@
 console.log('Running sbd_extension extension script...');
 
 // Global variable for extension
-var extension_sbd = extension_sbd || { DEBUG: true };
+window.extension_sbd = window.extension_sbd || { DEBUG: true, TIME: new Date().getTime() };
+extension_sbd = window.extension_sbd;
 
 // The following code is the core functionality of the extension.
 
