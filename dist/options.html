@@ -3,7 +3,7 @@
   <head>
     <title>Options for Highlighter</title>
     <link rel="stylesheet" href="optionStyle.css">
-    <script src="options.js"></script>
+    <script src="script.js"></script>
   </head>
 
   <body id="options">
@@ -14,13 +14,13 @@
           <h2>Autorun</h2>
         </th>
         <th>
-          <h2>Paragraph Mode</h2>
+          <h2>Colors</h2>
         </th>
       </tr>
       <tr>
         <td>
           <p><strong>
-            When enabled, Autorun will have the highlighter
+            When enabled, Autorun will have the extension
             run automatically whenever you visit a new page.
           </strong></p>
           <br>
@@ -29,48 +29,167 @@
         </td>
         <td class="gray">
           <p><strong>
-            This mode makes the highlighter apply
-            one color to an entire paragraph, instead
-            of changing colors every sentence as is
-            the default.
+            When enabled, this option will make the extension
+            apply highlights of varying colors to text on the
+            page.
           </strong></p>
-          <input id="paragraph" type="checkbox">
-          <label for="paragraph"><strong>Turn On<strong></label>
+          <div class="custom-select">
+            <select id="colors">
+              <option value="enabled">enabled</option>
+              <option value="disabled">disabled</option>
+            </select>
+          </div>
         </td>
       </tr>
+      
       <tr>
         <th>
-          <h2>Dyslexic Font</h2>
+          <h2>Paragraph Mode</h2>
         </th>
         <th>
-          <h2>Font Size</h2>
+          <h2>Custom Font</h2>
         </th>
       </tr>
       <tr>
         <td class="gray">
           <p><strong>
-            Turn this on, and all highlighted text
-            will be rendered in the dyslexia-friendly
-            Arial Sans-Sarif font.
+            If Paragraph Mode is enabled, the extension will
+            alter text per-paragraph, rather than per-sentence.
+            The effect is most apparent when colors are enabled;
+            colors will change with paragraphs, not sentences.
           </strong></p>
-          <br>
-          <input id="dyslexic" type="checkbox">
-          <label for="dyslexic"><strong>Turn On<strong></label>
+          <div class="custom-select">
+            <select id="paragraph">
+              <option value="disabled">disabled</option>
+              <option value="enabled">enabled</option>
+            </select>
+          </div>
         </td>
         <td>
           <p><strong>
-            Adjust the size of the highlighted
-            text to your liking.
+            Choose the typeface that the extension will apply
+            to text.  The options include a number of fonts
+            research has shown to be good for dyslexics.
           </strong></p>
-          <span class="noCheck">Font Size:</span>
-          <input id="fontSize" type="text">
+          <br>
+          <br>
+          <div class="custom-select">
+            <select id="font">
+              <option value="disabled">disabled</option>
+              <option value="arial">arial</option>
+              <option value="opendys">opendyslexic</option>
+              <option value="courier">courier</option>
+              <option value="verdana">verdana</option>
+              <option value="os">os</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          <h2>Font Size</h2>
+        </th>
+        <th>
+          <h2>Line Spacing</h2>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <p><strong>
+            When on, font size naturally changes the size of
+            text.  Automatic sets the size to a default value,
+            while custom uses the size set with the slider.
+          </strong></p>
+          <br>
+          <div class="custom-select">
+            <select id="fontsize">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+          <div class="srow">
+            <div class="slider-content">
+            </div>
+            <div class="slider">
+              <input id="fontsize_slider" type="range" min="1" max="100" value="20" class="slider">
+            </div>
+          </div>
+        </td>
+        <td class="gray">
+          <p><strong>
+            Line Spacing lets you change how much distance is
+            between each line.  Automatic sets the spacing to
+            a default value, while custom uses the value set
+            with the slider.
+          </strong></p>
+          <div class="custom-select">
+            <select id="vspace">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+          <div class="srow">
+            <div class="slider-content">
+            </div>
+            <div class="slider">
+              <input id="vspace_slider" type="range" min="1" max="100" value="20" class="slider">
+            </div>
+          </div>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          <h2>Padding</h2>
+        </th>
+        <th>
+          <h2>Text Width</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="gray">
+          <p><strong>
+            Padding changes the distance between text and 
+            the edges of the highlights (if enabled).  Automatic
+            for the default padding change, Custom for the slider.
+            Warning: setting the slider too high may make text unreadable!
+          </strong></p>
+          <div class="custom-select">
+            <select id="padding">
+              <option value="disabled">disabled</option>
+              <option value="automatic">automatic</option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+          <div class="srow">
+            <div class="slider-content">
+            </div>
+            <div class="slider">
+              <input id="padding_slider" type="range" min="1" max="100" value="20" class="slider">
+            </div>
+          </div>
+        </td>
+        <td>
+          <p><strong>
+            Setting Text Width to Condensed will make the
+            extension horizontally compress text, so it no
+            longer runs the entire length of your screen.
+          </strong></p>
+          <br>
+          <div class="custom-select">
+            <select id="width">
+              <option value="disabled">disabled</option>
+              <option value="condensed">condensed</option>
+            </select>
+          </div>
         </td>
       </tr>
     </table>
     <br>
     <br>
-    <!--
-    <button id="restoreButton">Restore Defaults</button>
-  -->
+    <input id="enabled" type="checkbox" style="display: none;"/>
   </body>
 </html>
